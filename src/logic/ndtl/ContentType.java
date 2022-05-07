@@ -1,0 +1,6 @@
+package logic.ndtl;
+
+public enum ContentType
+{
+	TOOL, PODCAST, LIST, MUSIC, ARTICLE, BOOK, VIDEO, LECTURE, IMAGE, QUOTE, NOTE, TERM, GAME, ENCYCLOPEDIA
+}

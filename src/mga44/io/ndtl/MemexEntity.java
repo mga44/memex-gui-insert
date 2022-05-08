@@ -1,6 +1,8 @@
 package mga44.io.ndtl;
 
-import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,10 +11,11 @@ import javax.annotation.processing.Generated;
 import logic.ndtl.ContentType;
 
 public class MemexEntity {
-	private static final String PROPERTY_MASK = "  %s : %s";
+	private static final String PROPERTY_MASK = "  %s : %s" + System.lineSeparator();
+
 	private ContentType type;
 	private String title;
-	private File attachment;
+	private Path attachment;
 	private List<String> tags;
 	private String note;
 	private String quote;
@@ -41,7 +44,7 @@ public class MemexEntity {
 		return title;
 	}
 
-	public File getAttachment() {
+	public Path getAttachment() {
 		return attachment;
 	}
 
@@ -57,21 +60,27 @@ public class MemexEntity {
 		return quote;
 	}
 
-	public void saveTo(File ndtlFile) {
+	public void saveTo(Path ndtlFile) throws IOException {
 		// TODO possible implementation as static method in new class
 		// TODO string parametrization
 		StringBuilder sb = new StringBuilder();
 		sb.append(title + System.lineSeparator());
 		sb.append(String.format(PROPERTY_MASK, "TYPE", type.toString()));
-		sb.append(String.format(PROPERTY_MASK, "FILE", attachment.getName()));
-		sb.append(String.format(PROPERTY_MASK, "QOTE", attachment.getName()));
+		sb.append(String.format(PROPERTY_MASK, "FILE", attachment.getFileName().toString()));
+		sb.append(String.format(PROPERTY_MASK, "QOTE", quote));
+
+		RandomAccessFile raf = new RandomAccessFile(ndtlFile.toFile(), "rwd");
+		String ndtlHeader = "var DATABASE = `" + System.lineSeparator();
+		raf.seek((long) ndtlHeader.getBytes().length);
+		raf.write(sb.toString().getBytes());
+		raf.close();
 	}
 
 	@Generated("SparkTools")
 	public static final class MemexEntityBuilder {
 		private ContentType type;
 		private String title;
-		private File attachment;
+		private Path attachment;
 		private List<String> tags = Collections.emptyList();
 		private String note;
 		private String quote;
@@ -89,7 +98,7 @@ public class MemexEntity {
 			return this;
 		}
 
-		public MemexEntityBuilder withAttachment(File attachment) {
+		public MemexEntityBuilder withAttachment(Path attachment) {
 			this.attachment = attachment;
 			return this;
 		}

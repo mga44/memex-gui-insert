@@ -12,23 +12,34 @@ import mga44.io.ndtl.MemexEntity;
 import mga44.io.ndtl.MemexEntity.MemexEntityBuilder;
 
 public class SaveEntityAction {
-	public void run() {
-		ContentType type = null;
-		String title = "";
-		Path attachment = Path.of("");
-		List<String> tags = Collections.emptyList();
-		String note = "";
-		String quote = "";
 
+	private String title;
+	private ContentType type;
+	private String note;
+	private String quote;
+	private Path attachment;
+	private List<String> tags;
+
+	public SaveEntityAction(String title, ContentType type, String note, String quote) {
+		this.title = title;
+		this.type = type;
+		attachment = null;
+		tags = Collections.emptyList();
+		this.note = note;
+		this.quote = quote;
+	}
+
+	public void run() {
 		MemexEntityBuilder builder = MemexEntity.builder().withType(type).withTitle(title);
+		EnvironmentManager manager = EnvironmentManager.getInstance();
 		if (attachment != null) {
-			Path destination = Path.of(EnvironmentManager.memexDirectory.toString(), "content", "media",
-					attachment.getName(attachment.getNameCount() - 1).toString());
+			String attachedFileName = attachment.getName(attachment.getNameCount() - 1).toString();
+			Path destination = Path.of(manager.getMemexDirectory().toString(), "content", "media", attachedFileName);
 			try {
 				Files.copy(attachment, destination);
 			} catch (IOException e) {
 				e.printStackTrace();
-			} // TODO test same file names
+			}
 			builder.withAttachment(destination);
 		}
 
@@ -43,7 +54,7 @@ public class SaveEntityAction {
 
 		MemexEntity entity = builder.build();
 		try {
-			entity.saveTo(EnvironmentManager.databaseFile);
+			entity.saveTo(manager.getDatabaseFile());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

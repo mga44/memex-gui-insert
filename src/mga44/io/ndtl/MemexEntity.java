@@ -66,7 +66,8 @@ public class MemexEntity {
 		StringBuilder sb = new StringBuilder();
 		sb.append(title + System.lineSeparator());
 		sb.append(String.format(PROPERTY_MASK, "TYPE", type.toString()));
-		sb.append(String.format(PROPERTY_MASK, "FILE", attachment.getFileName().toString()));
+		if (attachment != null)
+			sb.append(String.format(PROPERTY_MASK, "FILE", attachment.getFileName().toString()));
 		sb.append(String.format(PROPERTY_MASK, "QOTE", quote));
 
 		RandomAccessFile raf = new RandomAccessFile(ndtlFile.toFile(), "rwd");

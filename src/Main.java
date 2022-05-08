@@ -18,7 +18,7 @@ public class Main {
 	private static void initialize() {
 		try {
 			props = new Properties();
-			props.load(new FileInputStream("./resoures/app.properties"));
+			props.load(new FileInputStream("./resources/app.properties"));
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 			e.printStackTrace();

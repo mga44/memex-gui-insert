@@ -6,6 +6,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileInputStream;
+import java.util.Properties;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -26,7 +28,7 @@ public class Main extends JFrame {
 	private static final long serialVersionUID = 5373416828900017783L;
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField title;
 
 	/**
 	 * Launch the application.
@@ -48,9 +50,17 @@ public class Main extends JFrame {
 
 	private static void initialize() {
 		try {
+			String rootPath = "./resources/";
+			String appConfigPath = rootPath + "app.properties";
+			Properties appProps = new Properties();
+			appProps.load(new FileInputStream(appConfigPath));
+			System.setProperty("memex_directory", appProps.getProperty("memex_directory"));
+
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 			e.printStackTrace();
+			// TODO window with user info
+			System.exit(1);
 		}
 	}
 
@@ -81,15 +91,15 @@ public class Main extends JFrame {
 		gbc_lblNewLabel.gridy = 0;
 		contentPane.add(lblNewLabel, gbc_lblNewLabel);
 
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.gridwidth = 4;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 0;
-		contentPane.add(textField, gbc_textField);
-		textField.setColumns(10);
+		title = new JTextField();
+		GridBagConstraints gbc_title = new GridBagConstraints();
+		gbc_title.gridwidth = 4;
+		gbc_title.insets = new Insets(0, 0, 5, 5);
+		gbc_title.fill = GridBagConstraints.HORIZONTAL;
+		gbc_title.gridx = 1;
+		gbc_title.gridy = 0;
+		contentPane.add(title, gbc_title);
+		title.setColumns(10);
 
 		JLabel lblNewLabel_1 = new JLabel("Type");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -100,15 +110,15 @@ public class Main extends JFrame {
 		gbc_lblNewLabel_1.gridy = 1;
 		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
 
-		JComboBox<ContentType> comboBox = new JComboBox<>();
-		comboBox.setModel(new DefaultComboBoxModel<>(ContentType.values()));
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.gridwidth = 4;
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 1;
-		gbc_comboBox.gridy = 1;
-		contentPane.add(comboBox, gbc_comboBox);
+		JComboBox<ContentType> type = new JComboBox<>();
+		type.setModel(new DefaultComboBoxModel<>(ContentType.values()));
+		GridBagConstraints gbc_type = new GridBagConstraints();
+		gbc_type.gridwidth = 4;
+		gbc_type.insets = new Insets(0, 0, 5, 5);
+		gbc_type.fill = GridBagConstraints.HORIZONTAL;
+		gbc_type.gridx = 1;
+		gbc_type.gridy = 1;
+		contentPane.add(type, gbc_type);
 
 		JLabel lblNewLabel_2 = new JLabel("Note");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -118,15 +128,15 @@ public class Main extends JFrame {
 		gbc_lblNewLabel_2.gridy = 2;
 		contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
 
-		JEditorPane editorPane = new JEditorPane();
-		editorPane.setToolTipText("");
-		GridBagConstraints gbc_editorPane = new GridBagConstraints();
-		gbc_editorPane.gridwidth = 4;
-		gbc_editorPane.insets = new Insets(0, 0, 5, 5);
-		gbc_editorPane.fill = GridBagConstraints.BOTH;
-		gbc_editorPane.gridx = 1;
-		gbc_editorPane.gridy = 2;
-		contentPane.add(editorPane, gbc_editorPane);
+		JEditorPane note = new JEditorPane();
+		note.setToolTipText("");
+		GridBagConstraints gbc_note = new GridBagConstraints();
+		gbc_note.gridwidth = 4;
+		gbc_note.insets = new Insets(0, 0, 5, 5);
+		gbc_note.fill = GridBagConstraints.BOTH;
+		gbc_note.gridx = 1;
+		gbc_note.gridy = 2;
+		contentPane.add(note, gbc_note);
 
 		JLabel lblNewLabel_3 = new JLabel("Quote");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -136,14 +146,14 @@ public class Main extends JFrame {
 		gbc_lblNewLabel_3.gridy = 3;
 		contentPane.add(lblNewLabel_3, gbc_lblNewLabel_3);
 
-		JEditorPane editorPane_1 = new JEditorPane();
-		GridBagConstraints gbc_editorPane_1 = new GridBagConstraints();
-		gbc_editorPane_1.gridwidth = 4;
-		gbc_editorPane_1.insets = new Insets(0, 0, 5, 5);
-		gbc_editorPane_1.fill = GridBagConstraints.BOTH;
-		gbc_editorPane_1.gridx = 1;
-		gbc_editorPane_1.gridy = 3;
-		contentPane.add(editorPane_1, gbc_editorPane_1);
+		JEditorPane quote = new JEditorPane();
+		GridBagConstraints gbc_quote = new GridBagConstraints();
+		gbc_quote.gridwidth = 4;
+		gbc_quote.insets = new Insets(0, 0, 5, 5);
+		gbc_quote.fill = GridBagConstraints.BOTH;
+		gbc_quote.gridx = 1;
+		gbc_quote.gridy = 3;
+		contentPane.add(quote, gbc_quote);
 
 		JButton btnNewButton = new JButton("Save");
 		btnNewButton.setIcon(new ImageIcon("resources/icon/download.jpg"));
@@ -151,7 +161,8 @@ public class Main extends JFrame {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				SaveEntityAction action = new SaveEntityAction();
+				SaveEntityAction action = new SaveEntityAction(title.getText(), ((ContentType) type.getSelectedItem()),
+						note.getText(), quote.getText());
 				action.run();
 			}
 		});

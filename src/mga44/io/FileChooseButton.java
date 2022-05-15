@@ -2,7 +2,6 @@ package mga44.io;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 
 import javax.swing.JFileChooser;
@@ -18,14 +17,6 @@ public class FileChooseButton extends MouseAdapter {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		try {
-			getFile();
-		} catch (InvocationTargetException | InterruptedException e1) {
-			e1.printStackTrace();
-		}
-	}
-
-	private void getFile() throws InterruptedException, InvocationTargetException {
 		JFileChooser jfc = new JFileChooser();
 		int result = jfc.showSaveDialog(correspondingField.getParent());
 		if (result != JFileChooser.APPROVE_OPTION)

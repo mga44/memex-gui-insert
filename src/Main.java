@@ -195,6 +195,8 @@ public class Main extends JFrame {
 				SaveEntityAction action = new SaveEntityAction(title.getText(), ((ContentType) type.getSelectedItem()),
 						note.getText(), quote.getText());
 				action.run();
+
+				System.exit(0);
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -203,5 +205,4 @@ public class Main extends JFrame {
 		gbc_btnNewButton.gridy = 5;
 		contentPane.add(btnNewButton, gbc_btnNewButton);
 	}
-
 }

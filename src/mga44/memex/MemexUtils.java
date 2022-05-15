@@ -11,7 +11,8 @@ import mga44.EnvironmentManager;
 import mga44.io.ndtl.MemexEntity;
 
 public class MemexUtils {
-	private static final String PROPERTY_MASK = "  %s : %s" + System.lineSeparator();
+	private static final String PROPERTY_MASK = "  %s : %s" + System.lineSeparator(); // TODO handling multi line
+																						// entries
 
 	private Path ndtlFile = EnvironmentManager.getInstance().getDatabaseFile();
 

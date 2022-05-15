@@ -1,20 +1,14 @@
 package mga44.io.ndtl;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.annotation.processing.Generated;
 
 import logic.ndtl.ContentType;
 
 public class MemexEntity {
-	private static final String PROPERTY_MASK = "  %s : %s" + System.lineSeparator();
 
 	private ContentType type;
 	private String title;
@@ -61,22 +55,6 @@ public class MemexEntity {
 
 	public String getQuote() {
 		return quote;
-	}
-
-	public void saveTo(Path ndtlFile) throws IOException {
-		// TODO possible implementation as static method in new class
-		// TODO string parametrization
-		StringBuilder sb = new StringBuilder();
-		sb.append(title + System.lineSeparator());
-		sb.append(String.format(PROPERTY_MASK, "TYPE", type.toString()));
-		if (attachment != null)
-			sb.append(String.format(PROPERTY_MASK, "FILE", attachment.getFileName().toString()));
-
-		sb.append(String.format(PROPERTY_MASK, "QOTE", quote));
-		LinkedList<String> contents = Files.readAllLines(ndtlFile).stream()
-				.collect(Collectors.toCollection(() -> new LinkedList<>()));
-		contents.add(1, sb.toString());
-		Files.write(ndtlFile, contents, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
 	}
 
 	@Generated("SparkTools")

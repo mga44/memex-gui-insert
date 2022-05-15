@@ -1,10 +1,13 @@
 package mga44.io.ndtl;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.processing.Generated;
 
@@ -68,13 +71,12 @@ public class MemexEntity {
 		sb.append(String.format(PROPERTY_MASK, "TYPE", type.toString()));
 		if (attachment != null)
 			sb.append(String.format(PROPERTY_MASK, "FILE", attachment.getFileName().toString()));
-		sb.append(String.format(PROPERTY_MASK, "QOTE", quote));
 
-		RandomAccessFile raf = new RandomAccessFile(ndtlFile.toFile(), "rwd");
-		String ndtlHeader = "var DATABASE = `" + System.lineSeparator();
-		raf.seek((long) ndtlHeader.getBytes().length);
-		raf.write(sb.toString().getBytes());
-		raf.close();
+		sb.append(String.format(PROPERTY_MASK, "QOTE", quote));
+		LinkedList<String> contents = Files.readAllLines(ndtlFile).stream()
+				.collect(Collectors.toCollection(() -> new LinkedList<>()));
+		contents.add(1, sb.toString());
+		Files.write(ndtlFile, contents, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
 	}
 
 	@Generated("SparkTools")

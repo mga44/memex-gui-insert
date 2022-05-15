@@ -115,6 +115,7 @@ public class Main extends JFrame {
 
 		JComboBox<ContentType> type = new JComboBox<>();
 		type.setModel(new DefaultComboBoxModel<>(ContentType.values()));
+		type.setFont(new Font("Arial", Font.PLAIN, 14));
 		GridBagConstraints gbc_type = new GridBagConstraints();
 		gbc_type.gridwidth = 5;
 		gbc_type.insets = new Insets(0, 0, 5, 0);
@@ -193,7 +194,7 @@ public class Main extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				SaveEntityAction action = new SaveEntityAction(title.getText(), ((ContentType) type.getSelectedItem()),
-						note.getText(), quote.getText());
+						note.getText(), quote.getText(), file.getText());
 				action.run();
 
 				System.exit(0);

@@ -3,6 +3,7 @@ package mga44.gui.action;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,10 +22,10 @@ public class SaveEntityAction {
 	private Path attachment;
 	private List<String> tags;
 
-	public SaveEntityAction(String title, ContentType type, String note, String quote) {
+	public SaveEntityAction(String title, ContentType type, String note, String quote, String filePath) {
 		this.title = title;
 		this.type = type;
-		attachment = null;
+		this.attachment = Paths.get(filePath);
 		tags = Collections.emptyList();
 		this.note = note;
 		this.quote = quote;

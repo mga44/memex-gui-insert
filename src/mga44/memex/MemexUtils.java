@@ -14,19 +14,19 @@ public class MemexUtils {
 	private static final String PROPERTY_MASK = "  %s : %s" + System.lineSeparator(); // TODO handling multi line
 																						// entries
 
-	private Path ndtlFile = EnvironmentManager.getInstance().getDatabaseFile();
-
 	public void save(MemexEntity e) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		sb.append(e.getTitle() + System.lineSeparator());
 		sb.append(String.format(PROPERTY_MASK, "TYPE", e.getType().toString()));
-		if (e.getAttachment() != null)
+		sb.append(String.format(PROPERTY_MASK, "QOTE", e.getQuote()));
+		sb.append(String.format(PROPERTY_MASK, "NOTE", e.getNote()));
+		if (e.getAttachment() != null && Files.exists(e.getAttachment()))
 			sb.append(String.format(PROPERTY_MASK, "FILE", e.getAttachment().getFileName().toString()));
 
-		sb.append(String.format(PROPERTY_MASK, "QOTE", e.getQuote()));
-		LinkedList<String> contents = Files.readAllLines(ndtlFile).stream()
+		Path databaseFile = EnvironmentManager.getInstance().getDatabaseFile();
+		LinkedList<String> contents = Files.readAllLines(databaseFile).stream()
 				.collect(Collectors.toCollection(() -> new LinkedList<>()));
 		contents.add(1, sb.toString());
-		Files.write(ndtlFile, contents, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+		Files.write(databaseFile, contents, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
 	}
 }

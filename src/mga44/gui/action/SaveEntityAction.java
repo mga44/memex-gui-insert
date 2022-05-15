@@ -10,6 +10,7 @@ import logic.ndtl.ContentType;
 import mga44.EnvironmentManager;
 import mga44.io.ndtl.MemexEntity;
 import mga44.io.ndtl.MemexEntity.MemexEntityBuilder;
+import mga44.memex.MemexUtils;
 
 public class SaveEntityAction {
 
@@ -34,7 +35,8 @@ public class SaveEntityAction {
 		EnvironmentManager manager = EnvironmentManager.getInstance();
 		if (attachment != null) {
 			String attachedFileName = attachment.getName(attachment.getNameCount() - 1).toString();
-			Path destination = Path.of(manager.getMemexDirectory().toString(), "content", "media", attachedFileName);
+			Path destination = Path.of(manager.getMemexDirectory().toString(), "content", "media", attachedFileName); // TODO
+																														// parametrize
 			try {
 				Files.copy(attachment, destination);
 			} catch (IOException e) {
@@ -54,7 +56,7 @@ public class SaveEntityAction {
 
 		MemexEntity entity = builder.build();
 		try {
-			entity.saveTo(manager.getDatabaseFile());
+			new MemexUtils().save(entity);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

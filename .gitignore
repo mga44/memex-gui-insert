@@ -29,3 +29,6 @@ replay_pid*
 resources/app.properties
 target/classes/META-INF/maven/memex-gui-insert/memex-gui-insert/pom.properties
 target/classes/META-INF/MANIFEST.MF
+.settings/org.eclipse.jdt.core.prefs
+.settings/org.eclipse.m2e.core.prefs
+resources/app.properties

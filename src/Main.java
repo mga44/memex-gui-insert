@@ -23,8 +23,10 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import logic.ndtl.ContentType;
+import mga44.gui.action.ComboBoxWithIconRenderer;
 import mga44.gui.action.SaveEntityAction;
 import mga44.io.FileChooseButton;
+import mga44.io.ndtl.MemexEntity.MemexEntityBuilder;
 
 public class Main extends JFrame {
 	private static final long serialVersionUID = 5373416828900017783L;
@@ -32,6 +34,8 @@ public class Main extends JFrame {
 	private JPanel contentPane;
 	private JTextField title;
 	private JTextField file;
+	private JTextField tags;
+	private JTextField link;
 
 	/**
 	 * Launch the application.
@@ -80,9 +84,9 @@ public class Main extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-		gbl_contentPane.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+		gbl_contentPane.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		gbl_contentPane.columnWeights = new double[] { 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
-		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
 		JLabel lblNewLabel = new JLabel("Title");
@@ -116,6 +120,7 @@ public class Main extends JFrame {
 		JComboBox<ContentType> type = new JComboBox<>();
 		type.setModel(new DefaultComboBoxModel<>(ContentType.values()));
 		type.setFont(new Font("Arial", Font.PLAIN, 14));
+		type.setRenderer(new ComboBoxWithIconRenderer());
 		GridBagConstraints gbc_type = new GridBagConstraints();
 		gbc_type.gridwidth = 5;
 		gbc_type.insets = new Insets(0, 0, 5, 0);
@@ -144,20 +149,40 @@ public class Main extends JFrame {
 		contentPane.add(file, gbc_file);
 		file.setColumns(10);
 
-		JButton btnNewButton_1 = new JButton("New button");
+		JButton btnNewButton_1 = new JButton("Find");
+		btnNewButton_1.addMouseListener(new FileChooseButton(file));
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
+		gbc_btnNewButton_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewButton_1.gridx = 5;
 		gbc_btnNewButton_1.gridy = 2;
-		btnNewButton_1.addMouseListener(new FileChooseButton(file));
 		contentPane.add(btnNewButton_1, gbc_btnNewButton_1);
+
+		JLabel lblNewLabel_4_1 = new JLabel("Tags");
+		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblNewLabel_4_1 = new GridBagConstraints();
+		gbc_lblNewLabel_4_1.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel_4_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_4_1.gridx = 0;
+		gbc_lblNewLabel_4_1.gridy = 3;
+		contentPane.add(lblNewLabel_4_1, gbc_lblNewLabel_4_1);
+
+		tags = new JTextField();
+		GridBagConstraints gbc_tags = new GridBagConstraints();
+		gbc_tags.gridwidth = 5;
+		gbc_tags.insets = new Insets(0, 0, 5, 0);
+		gbc_tags.fill = GridBagConstraints.BOTH;
+		gbc_tags.gridx = 1;
+		gbc_tags.gridy = 3;
+		contentPane.add(tags, gbc_tags);
+		tags.setColumns(10);
 
 		JLabel lblNewLabel_2 = new JLabel("Note");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_2.gridx = 0;
-		gbc_lblNewLabel_2.gridy = 3;
+		gbc_lblNewLabel_2.gridy = 4;
 		contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
 
 		JEditorPane note = new JEditorPane();
@@ -167,15 +192,34 @@ public class Main extends JFrame {
 		gbc_note.insets = new Insets(0, 0, 5, 0);
 		gbc_note.fill = GridBagConstraints.BOTH;
 		gbc_note.gridx = 1;
-		gbc_note.gridy = 3;
+		gbc_note.gridy = 4;
 		contentPane.add(note, gbc_note);
+
+		JLabel newLabel_5 = new JLabel("Link");
+		newLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_newLabel_5 = new GridBagConstraints();
+		gbc_newLabel_5.anchor = GridBagConstraints.BASELINE;
+		gbc_newLabel_5.insets = new Insets(0, 0, 5, 5);
+		gbc_newLabel_5.gridx = 0;
+		gbc_newLabel_5.gridy = 5;
+		contentPane.add(newLabel_5, gbc_newLabel_5);
+
+		link = new JTextField();
+		GridBagConstraints gbc_link = new GridBagConstraints();
+		gbc_link.gridwidth = 5;
+		gbc_link.insets = new Insets(0, 0, 5, 5);
+		gbc_link.fill = GridBagConstraints.BOTH;
+		gbc_link.gridx = 1;
+		gbc_link.gridy = 5;
+		contentPane.add(link, gbc_link);
+		link.setColumns(10);
 
 		JLabel lblNewLabel_3 = new JLabel("Quote");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_3.gridx = 0;
-		gbc_lblNewLabel_3.gridy = 4;
+		gbc_lblNewLabel_3.gridy = 6;
 		contentPane.add(lblNewLabel_3, gbc_lblNewLabel_3);
 
 		JEditorPane quote = new JEditorPane();
@@ -184,7 +228,7 @@ public class Main extends JFrame {
 		gbc_quote.insets = new Insets(0, 0, 5, 0);
 		gbc_quote.fill = GridBagConstraints.BOTH;
 		gbc_quote.gridx = 1;
-		gbc_quote.gridy = 4;
+		gbc_quote.gridy = 6;
 		contentPane.add(quote, gbc_quote);
 
 		JButton btnNewButton = new JButton("Save");
@@ -193,8 +237,16 @@ public class Main extends JFrame {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				SaveEntityAction action = new SaveEntityAction(title.getText(), ((ContentType) type.getSelectedItem()),
-						note.getText(), quote.getText(), file.getText());
+				//@formatter:off
+				MemexEntityBuilder builder = new MemexEntityBuilder(title.getText())
+						.withType(((ContentType) type.getSelectedItem()))
+						.withNote(note.getText())
+						.withQuote(quote.getText())
+						.withLink(link.getText())
+						.withAttachment(file.getText())
+						.withTags(tags.getText());
+				//@formatter:on
+				SaveEntityAction action = new SaveEntityAction(builder.build());
 				action.run();
 
 				System.exit(0);
@@ -203,7 +255,7 @@ public class Main extends JFrame {
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.gridwidth = 2;
 		gbc_btnNewButton.gridx = 4;
-		gbc_btnNewButton.gridy = 5;
+		gbc_btnNewButton.gridy = 7;
 		contentPane.add(btnNewButton, gbc_btnNewButton);
 	}
 }

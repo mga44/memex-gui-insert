@@ -27,3 +27,5 @@ replay_pid*
 .project
 .classpath
 resources/app.properties
+target/classes/META-INF/maven/memex-gui-insert/memex-gui-insert/pom.properties
+target/classes/META-INF/MANIFEST.MF

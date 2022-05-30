@@ -4,8 +4,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
+import java.util.Optional;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.StringUtils;
 
 import mga44.EnvironmentManager;
 import mga44.io.ndtl.MemexEntity;
@@ -16,12 +23,31 @@ public class MemexUtils {
 
 	public void save(MemexEntity e) throws IOException {
 		StringBuilder sb = new StringBuilder();
+
+		BiConsumer<String, Object> append = (name, value) -> {
+			if (Optional.ofNullable(value).map(Object::toString).map(StringUtils::isNotBlank).orElse(Boolean.FALSE))
+				sb.append(String.format(PROPERTY_MASK, name, value));
+		};
 		sb.append(e.getTitle() + System.lineSeparator());
-		sb.append(String.format(PROPERTY_MASK, "TYPE", e.getType().toString()));
-		sb.append(String.format(PROPERTY_MASK, "QOTE", e.getQuote()));
-		sb.append(String.format(PROPERTY_MASK, "NOTE", e.getNote()));
+		append.accept("TYPE", e.getType());
+		append.accept("QOTE", e.getQuote());
+		append.accept("NOTE", e.getNote());
+		append.accept("TAGS", e.getTags().stream().collect(Collectors.joining(",")));
 		if (e.getAttachment() != null && Files.exists(e.getAttachment()))
-			sb.append(String.format(PROPERTY_MASK, "FILE", e.getAttachment().getFileName().toString()));
+			append.accept("FILE", e.getAttachment().getFileName().toString());
+
+		append.accept("LINK", e.getLink());
+
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")
+				.withZone(ZoneId.systemDefault());
+		append.accept("DATE", dateFormatter.format(Instant.now()));
+		append.accept("DONE", e.isDone());
+		append.accept("AUTH", e.getAuthor());
+		append.accept("PROJ", e.getProject());
+		append.accept("TERM", e.getTerm());
+		append.accept("PERS", e.getPerson());
+		append.accept("REVI", e.isRevised());
+		append.accept("SRCE", e.getSource());
 
 		Path databaseFile = EnvironmentManager.getInstance().getDatabaseFile();
 		LinkedList<String> contents = Files.readAllLines(databaseFile).stream()

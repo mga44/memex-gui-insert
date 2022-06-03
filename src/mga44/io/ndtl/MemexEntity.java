@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import logic.ndtl.ContentType;
 import mga44.EnvironmentManager;
+import mga44.SimpleMessageWindow;
 
 public class MemexEntity {
 
@@ -147,7 +148,8 @@ public class MemexEntity {
 				this.attachment = destination;
 			} catch (IOException e) {
 				e.printStackTrace();
-				// TODO
+				String errorMessage = "Failed to copy file:" + System.lineSeparator() + e.getLocalizedMessage();
+				new SimpleMessageWindow().showError(errorMessage);
 			}
 			return this;
 		}
@@ -175,7 +177,8 @@ public class MemexEntity {
 				this.link = new URI(link);
 			} catch (URISyntaxException e) {
 				e.printStackTrace();
-				// TODO
+				String errorMessage = "Given value is not a proper link: " + System.lineSeparator() + link;
+				new SimpleMessageWindow().showError(errorMessage);
 			}
 			return this;
 		}

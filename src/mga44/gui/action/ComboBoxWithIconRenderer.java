@@ -20,7 +20,7 @@ public class ComboBoxWithIconRenderer extends DefaultListCellRenderer {
 	private Color defaultBackground = (Color) UIManager.get("List.background");
 
 	public ComboBoxWithIconRenderer() {
-//		iconMap.put(ContentType.TOOL, new ImageIcon("./resources/icon/hammer.png"));// TODO
+		// TODO add icons
 	}
 
 	@Override

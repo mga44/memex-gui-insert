@@ -16,13 +16,13 @@ import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import logic.ndtl.ContentType;
+import mga44.SimpleMessageWindow;
 import mga44.gui.action.ComboBoxWithIconRenderer;
 import mga44.gui.action.SaveEntityAction;
 import mga44.io.FileChooseButton;
@@ -57,6 +57,7 @@ public class Main extends JFrame {
 
 	private static void initialize() {
 		try {
+			// TODO add error log file
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			String rootPath = "./resources/";
 			String appConfigPath = rootPath + "app.properties";
@@ -66,7 +67,7 @@ public class Main extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 			String errorMessage = "Failed program initialisation:" + System.lineSeparator() + e.getLocalizedMessage();
-			JOptionPane.showInternalMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+			new SimpleMessageWindow().showError(errorMessage);
 			System.exit(1);
 		}
 	}

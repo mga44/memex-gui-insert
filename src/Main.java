@@ -21,11 +21,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import logic.ndtl.ContentType;
 import mga44.SimpleMessageWindow;
+import mga44.gui.MouseDragAdapter;
 import mga44.gui.action.ComboBoxWithIconRenderer;
 import mga44.gui.action.SaveEntityAction;
 import mga44.io.FileChooseButton;
@@ -37,10 +39,6 @@ public class Main extends JFrame {
 	private static final Font programFont = new Font("Tahoma", Font.PLAIN, 12);
 
 	private JPanel contentPane;
-	private JTextField title;
-	private JTextField file;
-	private JTextField tags;
-	private JTextField link;
 
 	int posX = 0, posY = 0;
 
@@ -95,18 +93,11 @@ public class Main extends JFrame {
 		mainPane.setLayout(gbl_mainPane);
 		setContentPane(mainPane);
 		setUndecorated(true);
-		this.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				posX = e.getX();
-				posY = e.getY();
-			}
-		});
-		this.addMouseMotionListener(new MouseAdapter() {
-			public void mouseDragged(MouseEvent evt) {
-				setLocation(evt.getXOnScreen() - posX, evt.getYOnScreen() - posY);
-			}
-		});
+		this.addMouseListener(new MouseDragAdapter(this));
+		this.addMouseMotionListener(new MouseDragAdapter(this));
 		JTabbedPane jtp = new JTabbedPane();
+		jtp.addMouseListener(new MouseDragAdapter(SwingUtilities.getWindowAncestor(jtp)));
+		jtp.addMouseMotionListener(new MouseDragAdapter(SwingUtilities.getWindowAncestor(jtp)));
 		GridBagConstraints gbc_jtp = new GridBagConstraints();
 		gbc_jtp.gridwidth = 4;
 		gbc_jtp.fill = GridBagConstraints.BOTH;
@@ -138,7 +129,7 @@ public class Main extends JFrame {
 		gbc_titleLabel.gridy = 0;
 		contentPane.add(titleLabel, gbc_titleLabel);
 
-		title = new JTextField();
+		JTextField title = new JTextField();
 		GridBagConstraints gbc_title = new GridBagConstraints();
 		gbc_title.fill = GridBagConstraints.HORIZONTAL;
 		gbc_title.insets = new Insets(0, 0, 5, 0);
@@ -166,8 +157,6 @@ public class Main extends JFrame {
 		gbc_type.gridy = 1;
 		contentPane.add(type, gbc_type);
 
-		JButton findFileButton = new JButton("Find");
-
 		JLabel FileLabel = new JLabel("File");
 		FileLabel.setFont(programFont);
 		GridBagConstraints gbc_FileLabel = new GridBagConstraints();
@@ -177,9 +166,8 @@ public class Main extends JFrame {
 		gbc_FileLabel.gridx = 0;
 		gbc_FileLabel.gridy = 2;
 		contentPane.add(FileLabel, gbc_FileLabel);
-		findFileButton.addMouseListener(new FileChooseButton(file));
 
-		file = new JTextField();
+		JTextField file = new JTextField();
 		GridBagConstraints gbc_file = new GridBagConstraints();
 		gbc_file.fill = GridBagConstraints.HORIZONTAL;
 		gbc_file.insets = new Insets(0, 0, 5, 5);
@@ -192,6 +180,9 @@ public class Main extends JFrame {
 		gbc_findFileButton.insets = new Insets(0, 0, 5, 0);
 		gbc_findFileButton.gridx = 2;
 		gbc_findFileButton.gridy = 2;
+
+		JButton findFileButton = new JButton("Find");
+		findFileButton.addMouseListener(new FileChooseButton(file));
 		contentPane.add(findFileButton, gbc_findFileButton);
 
 		JLabel tagsLabel = new JLabel("Tags");
@@ -203,7 +194,7 @@ public class Main extends JFrame {
 		gbc_tagsLabel.gridy = 3;
 		contentPane.add(tagsLabel, gbc_tagsLabel);
 
-		tags = new JTextField();
+		JTextField tags = new JTextField();
 		GridBagConstraints gbc_tags = new GridBagConstraints();
 		gbc_tags.fill = GridBagConstraints.BOTH;
 		gbc_tags.insets = new Insets(0, 0, 5, 0);
@@ -222,7 +213,6 @@ public class Main extends JFrame {
 		contentPane.add(NoteLabel, gbc_NoteLabel);
 
 		JEditorPane note = new JEditorPane();
-		note.setToolTipText("");
 		GridBagConstraints gbc_note = new GridBagConstraints();
 		gbc_note.fill = GridBagConstraints.BOTH;
 		gbc_note.insets = new Insets(0, 0, 5, 0);
@@ -240,7 +230,7 @@ public class Main extends JFrame {
 		gbc_linkLabel.gridy = 5;
 		contentPane.add(linkLabel, gbc_linkLabel);
 
-		link = new JTextField();
+		JTextField link = new JTextField();
 		GridBagConstraints gbc_link = new GridBagConstraints();
 		gbc_link.fill = GridBagConstraints.BOTH;
 		gbc_link.insets = new Insets(0, 0, 5, 0);

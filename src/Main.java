@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileInputStream;
@@ -224,7 +226,7 @@ public class Main extends JFrame {
 		link = new JTextField();
 		GridBagConstraints gbc_link = new GridBagConstraints();
 		gbc_link.gridwidth = 5;
-		gbc_link.insets = new Insets(0, 0, 5, 5);
+		gbc_link.insets = new Insets(0, 0, 5, 0);
 		gbc_link.fill = GridBagConstraints.BOTH;
 		gbc_link.gridx = 1;
 		gbc_link.gridy = 5;
@@ -274,5 +276,18 @@ public class Main extends JFrame {
 		gbc_btnNewButton.gridx = 4;
 		gbc_btnNewButton.gridy = 7;
 		contentPane.add(btnNewButton, gbc_btnNewButton);
+
+		JButton exitBtn = new JButton("X");
+		exitBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		GridBagConstraints gbc_exitBtn = new GridBagConstraints();
+		gbc_exitBtn.insets = new Insets(0, 0, 0, 5);
+		gbc_exitBtn.gridx = 0;
+		gbc_exitBtn.gridy = 7;
+		contentPane.add(exitBtn, gbc_exitBtn);
 	}
 }

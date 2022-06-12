@@ -129,14 +129,14 @@ public class Main extends JFrame {
 		JComboBox<ContentType> type = new JComboBox<>();
 		type.setModel(new DefaultComboBoxModel<>(ContentType.values()));
 
-		JLabel lblNewLabel = new JLabel("Title");
-		lblNewLabel.setFont(programFont);
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 0;
-		contentPane.add(lblNewLabel, gbc_lblNewLabel);
+		JLabel titleLabel = new JLabel("Title");
+		titleLabel.setFont(programFont);
+		GridBagConstraints gbc_titleLabel = new GridBagConstraints();
+		gbc_titleLabel.anchor = GridBagConstraints.EAST;
+		gbc_titleLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_titleLabel.gridx = 0;
+		gbc_titleLabel.gridy = 0;
+		contentPane.add(titleLabel, gbc_titleLabel);
 
 		title = new JTextField();
 		GridBagConstraints gbc_title = new GridBagConstraints();
@@ -148,14 +148,14 @@ public class Main extends JFrame {
 		contentPane.add(title, gbc_title);
 		title.setColumns(10);
 
-		JLabel lblNewLabel_1 = new JLabel("Type");
-		lblNewLabel_1.setFont(programFont);
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 0;
-		gbc_lblNewLabel_1.gridy = 1;
-		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		JLabel typeLabel = new JLabel("Type");
+		typeLabel.setFont(programFont);
+		GridBagConstraints gbc_typeLabel = new GridBagConstraints();
+		gbc_typeLabel.anchor = GridBagConstraints.EAST;
+		gbc_typeLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_typeLabel.gridx = 0;
+		gbc_typeLabel.gridy = 1;
+		contentPane.add(typeLabel, gbc_typeLabel);
 		type.setFont(programFont);
 		type.setRenderer(new ComboBoxWithIconRenderer());
 		GridBagConstraints gbc_type = new GridBagConstraints();
@@ -166,18 +166,18 @@ public class Main extends JFrame {
 		gbc_type.gridy = 1;
 		contentPane.add(type, gbc_type);
 
-		JButton btnNewButton_1 = new JButton("Find");
+		JButton findFileButton = new JButton("Find");
 
-		JLabel lblNewLabel_4 = new JLabel("File");
-		lblNewLabel_4.setFont(programFont);
-		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
-		gbc_lblNewLabel_4.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_4.fill = GridBagConstraints.VERTICAL;
-		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_4.gridx = 0;
-		gbc_lblNewLabel_4.gridy = 2;
-		contentPane.add(lblNewLabel_4, gbc_lblNewLabel_4);
-		btnNewButton_1.addMouseListener(new FileChooseButton(file));
+		JLabel FileLabel = new JLabel("File");
+		FileLabel.setFont(programFont);
+		GridBagConstraints gbc_FileLabel = new GridBagConstraints();
+		gbc_FileLabel.anchor = GridBagConstraints.EAST;
+		gbc_FileLabel.fill = GridBagConstraints.VERTICAL;
+		gbc_FileLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_FileLabel.gridx = 0;
+		gbc_FileLabel.gridy = 2;
+		contentPane.add(FileLabel, gbc_FileLabel);
+		findFileButton.addMouseListener(new FileChooseButton(file));
 
 		file = new JTextField();
 		GridBagConstraints gbc_file = new GridBagConstraints();
@@ -187,21 +187,21 @@ public class Main extends JFrame {
 		gbc_file.gridy = 2;
 		contentPane.add(file, gbc_file);
 		file.setColumns(10);
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewButton_1.gridx = 2;
-		gbc_btnNewButton_1.gridy = 2;
-		contentPane.add(btnNewButton_1, gbc_btnNewButton_1);
+		GridBagConstraints gbc_findFileButton = new GridBagConstraints();
+		gbc_findFileButton.fill = GridBagConstraints.HORIZONTAL;
+		gbc_findFileButton.insets = new Insets(0, 0, 5, 0);
+		gbc_findFileButton.gridx = 2;
+		gbc_findFileButton.gridy = 2;
+		contentPane.add(findFileButton, gbc_findFileButton);
 
-		JLabel lblNewLabel_4_1 = new JLabel("Tags");
-		lblNewLabel_4_1.setFont(programFont);
-		GridBagConstraints gbc_lblNewLabel_4_1 = new GridBagConstraints();
-		gbc_lblNewLabel_4_1.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_4_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_4_1.gridx = 0;
-		gbc_lblNewLabel_4_1.gridy = 3;
-		contentPane.add(lblNewLabel_4_1, gbc_lblNewLabel_4_1);
+		JLabel tagsLabel = new JLabel("Tags");
+		tagsLabel.setFont(programFont);
+		GridBagConstraints gbc_tagsLabel = new GridBagConstraints();
+		gbc_tagsLabel.anchor = GridBagConstraints.EAST;
+		gbc_tagsLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_tagsLabel.gridx = 0;
+		gbc_tagsLabel.gridy = 3;
+		contentPane.add(tagsLabel, gbc_tagsLabel);
 
 		tags = new JTextField();
 		GridBagConstraints gbc_tags = new GridBagConstraints();
@@ -213,13 +213,13 @@ public class Main extends JFrame {
 		contentPane.add(tags, gbc_tags);
 		tags.setColumns(10);
 
-		JLabel lblNewLabel_2 = new JLabel("Note");
-		lblNewLabel_2.setFont(programFont);
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_2.gridx = 0;
-		gbc_lblNewLabel_2.gridy = 4;
-		contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
+		JLabel NoteLabel = new JLabel("Note");
+		NoteLabel.setFont(programFont);
+		GridBagConstraints gbc_NoteLabel = new GridBagConstraints();
+		gbc_NoteLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_NoteLabel.gridx = 0;
+		gbc_NoteLabel.gridy = 4;
+		contentPane.add(NoteLabel, gbc_NoteLabel);
 
 		JEditorPane note = new JEditorPane();
 		note.setToolTipText("");
@@ -231,14 +231,14 @@ public class Main extends JFrame {
 		gbc_note.gridy = 4;
 		contentPane.add(note, gbc_note);
 
-		JLabel newLabel_5 = new JLabel("Link");
-		newLabel_5.setFont(programFont);
-		GridBagConstraints gbc_newLabel_5 = new GridBagConstraints();
-		gbc_newLabel_5.anchor = GridBagConstraints.NORTH;
-		gbc_newLabel_5.insets = new Insets(0, 0, 5, 5);
-		gbc_newLabel_5.gridx = 0;
-		gbc_newLabel_5.gridy = 5;
-		contentPane.add(newLabel_5, gbc_newLabel_5);
+		JLabel linkLabel = new JLabel("Link");
+		linkLabel.setFont(programFont);
+		GridBagConstraints gbc_linkLabel = new GridBagConstraints();
+		gbc_linkLabel.anchor = GridBagConstraints.NORTH;
+		gbc_linkLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_linkLabel.gridx = 0;
+		gbc_linkLabel.gridy = 5;
+		contentPane.add(linkLabel, gbc_linkLabel);
 
 		link = new JTextField();
 		GridBagConstraints gbc_link = new GridBagConstraints();
@@ -250,13 +250,13 @@ public class Main extends JFrame {
 		contentPane.add(link, gbc_link);
 		link.setColumns(10);
 
-		JLabel lblNewLabel_3 = new JLabel("Quote");
-		lblNewLabel_3.setFont(programFont);
-		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
-		gbc_lblNewLabel_3.insets = new Insets(0, 0, 0, 5);
-		gbc_lblNewLabel_3.gridx = 0;
-		gbc_lblNewLabel_3.gridy = 6;
-		contentPane.add(lblNewLabel_3, gbc_lblNewLabel_3);
+		JLabel quoteLabel = new JLabel("Quote");
+		quoteLabel.setFont(programFont);
+		GridBagConstraints gbc_quoteLabel = new GridBagConstraints();
+		gbc_quoteLabel.insets = new Insets(0, 0, 0, 5);
+		gbc_quoteLabel.gridx = 0;
+		gbc_quoteLabel.gridy = 6;
+		contentPane.add(quoteLabel, gbc_quoteLabel);
 
 		JEditorPane quote = new JEditorPane();
 		GridBagConstraints gbc_quote = new GridBagConstraints();
@@ -266,10 +266,10 @@ public class Main extends JFrame {
 		gbc_quote.gridy = 6;
 		contentPane.add(quote, gbc_quote);
 
-		JButton btnNewButton = new JButton("Save");
-		btnNewButton.setIcon(new ImageIcon("resources/icon/download.png"));
-		btnNewButton.setFont(programFont);
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		JButton saveButton = new JButton("Save");
+		saveButton.setIcon(new ImageIcon("resources/icon/download.png"));
+		saveButton.setFont(programFont);
+		saveButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				//@formatter:off
@@ -287,11 +287,11 @@ public class Main extends JFrame {
 				System.exit(0);
 			}
 		});
-		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
-		gbc_btnNewButton_3.anchor = GridBagConstraints.EAST;
-		gbc_btnNewButton_3.gridx = 3;
-		gbc_btnNewButton_3.gridy = 1;
-		mainPane.add(btnNewButton, gbc_btnNewButton_3);
+		GridBagConstraints gbc_saveButton = new GridBagConstraints();
+		gbc_saveButton.anchor = GridBagConstraints.EAST;
+		gbc_saveButton.gridx = 3;
+		gbc_saveButton.gridy = 1;
+		mainPane.add(saveButton, gbc_saveButton);
 
 		JButton exitBtn = new JButton("X");
 		exitBtn.addActionListener(new ActionListener() {

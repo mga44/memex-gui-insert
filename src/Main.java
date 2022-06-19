@@ -21,7 +21,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
@@ -96,8 +95,8 @@ public class Main extends JFrame {
 		this.addMouseListener(new MouseDragAdapter(this));
 		this.addMouseMotionListener(new MouseDragAdapter(this));
 		JTabbedPane jtp = new JTabbedPane();
-		jtp.addMouseListener(new MouseDragAdapter(SwingUtilities.getWindowAncestor(jtp)));
-		jtp.addMouseMotionListener(new MouseDragAdapter(SwingUtilities.getWindowAncestor(jtp)));
+		jtp.addMouseListener(new MouseDragAdapter(jtp));
+		jtp.addMouseMotionListener(new MouseDragAdapter(jtp));
 		GridBagConstraints gbc_jtp = new GridBagConstraints();
 		gbc_jtp.gridwidth = 4;
 		gbc_jtp.fill = GridBagConstraints.BOTH;

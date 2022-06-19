@@ -1,15 +1,15 @@
 package mga44.gui;
 
-import java.awt.Window;
+import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MouseDragAdapter extends MouseAdapter {
-	private Window win;
+	private Component win;
 
-	private int posX, posY;
+	private static int posX, posY;
 
-	public MouseDragAdapter(Window win) {
+	public MouseDragAdapter(Component win) {
 		this.win = win;
 	}
 

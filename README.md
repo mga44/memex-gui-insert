@@ -21,6 +21,7 @@ Program allows user to insert entities to database in [Indental](https://wiki.xx
 - [ ] improve UI
 - [ ] caching and autofilling tags
 - [ ] logging errors to file
+- [ ] integrations with some kind of hosting platforms
 
 ## Acknowledgements
 

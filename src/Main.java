@@ -39,8 +39,6 @@ public class Main extends JFrame {
 
 	private JPanel contentPane;
 
-	int posX = 0, posY = 0;
-
 	/**
 	 * Launch the application.
 	 */

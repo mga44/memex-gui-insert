@@ -24,6 +24,8 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+
 import logic.ndtl.ContentType;
 import mga44.SimpleMessageWindow;
 import mga44.gui.MouseDragAdapter;
@@ -60,7 +62,8 @@ public class Main extends JFrame {
 	private static void initialize() {
 		try {
 			// TODO add error log file
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			FlatDarkLaf.setup();
+			UIManager.setLookAndFeel(new FlatDarkLaf());
 			String rootPath = "./resources/";
 			String appConfigPath = rootPath + "app.properties";
 			Properties appProps = new Properties();
@@ -93,6 +96,7 @@ public class Main extends JFrame {
 		this.addMouseListener(new MouseDragAdapter(this));
 		this.addMouseMotionListener(new MouseDragAdapter(this));
 		JTabbedPane jtp = new JTabbedPane();
+		jtp.setBorder(UIManager.getBorder("OptionPane.border"));
 		jtp.addMouseListener(new MouseDragAdapter(jtp));
 		jtp.addMouseMotionListener(new MouseDragAdapter(jtp));
 		GridBagConstraints gbc_jtp = new GridBagConstraints();
@@ -103,6 +107,7 @@ public class Main extends JFrame {
 		gbc_jtp.gridy = 0;
 		mainPane.add(jtp, gbc_jtp);
 		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 0, 0, 0));
 		jtp.add("Basic", contentPane);
 		JPanel advancedPane = new JPanel();
 		jtp.add("Advanced", advancedPane);

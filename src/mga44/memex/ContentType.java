@@ -1,4 +1,4 @@
-package logic.ndtl;
+package mga44.memex;
 
 public enum ContentType
 {

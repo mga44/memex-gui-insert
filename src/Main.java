@@ -26,13 +26,13 @@ import javax.swing.border.EmptyBorder;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 
-import logic.ndtl.ContentType;
 import mga44.SimpleMessageWindow;
 import mga44.gui.MouseDragAdapter;
 import mga44.gui.action.ComboBoxWithIconRenderer;
 import mga44.gui.action.SaveEntityAction;
 import mga44.io.FileChooseButton;
 import mga44.io.ndtl.MemexEntity.MemexEntityBuilder;
+import mga44.memex.ContentType;
 
 @SuppressWarnings("serial")
 public class Main extends JFrame {

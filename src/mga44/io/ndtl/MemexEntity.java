@@ -14,9 +14,9 @@ import javax.annotation.processing.Generated;
 
 import org.apache.commons.lang3.StringUtils;
 
-import logic.ndtl.ContentType;
 import mga44.EnvironmentManager;
 import mga44.SimpleMessageWindow;
+import mga44.memex.ContentType;
 
 public class MemexEntity {
 

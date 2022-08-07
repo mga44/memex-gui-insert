@@ -7,7 +7,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 import javax.swing.UIManager;
 
-import logic.ndtl.ContentType;
+import mga44.memex.ContentType;
 
 @SuppressWarnings("serial")
 public class ComboBoxWithIconRenderer extends DefaultListCellRenderer {

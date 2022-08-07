@@ -1,24 +1,35 @@
 package mga44.gui;
 
 import java.awt.Component;
-import java.awt.event.MouseAdapter;
+import java.awt.Container;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.util.Optional;
 
-public class MouseDragAdapter extends MouseAdapter {
-	private Component win;
+import javax.swing.event.MouseInputAdapter;
 
-	private static int posX, posY;
+public class MouseDragAdapter extends MouseInputAdapter {
 
-	public MouseDragAdapter(Component win) {
-		this.win = win;
+	Point location;
+	MouseEvent pressed;
+
+	public void mousePressed(MouseEvent me) {
+		pressed = me;
 	}
 
-	public void mousePressed(MouseEvent e) {
-		posX = e.getX();
-		posY = e.getY();
+	public void mouseDragged(MouseEvent me) {
+		Component component = getMainComponent(me.getComponent());
+		location = component.getLocation(location);
+		int x = location.x - pressed.getX() + me.getX();
+		int y = location.y - pressed.getY() + me.getY();
+		component.setLocation(x, y);
 	}
 
-	public void mouseDragged(MouseEvent evt) {
-		win.setLocation(evt.getXOnScreen() - posX, evt.getYOnScreen() - posY);
+	private Component getMainComponent(Component component) {
+		Optional<Container> possibleParent = Optional.ofNullable(component.getParent());
+		if (possibleParent.isEmpty())
+			return component;
+
+		return getMainComponent(possibleParent.get());
 	}
 }

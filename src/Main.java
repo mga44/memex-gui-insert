@@ -63,7 +63,7 @@ public class Main extends JFrame {
 		try {
 			// TODO add error log file
 			FlatDarkLaf.setup();
-			UIManager.setLookAndFeel(new FlatDarkLaf());
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			String rootPath = "./resources/";
 			String appConfigPath = rootPath + "app.properties";
 			Properties appProps = new Properties();
@@ -93,12 +93,14 @@ public class Main extends JFrame {
 		mainPane.setLayout(gbl_mainPane);
 		setContentPane(mainPane);
 		setUndecorated(true);
-		this.addMouseListener(new MouseDragAdapter(this));
-		this.addMouseMotionListener(new MouseDragAdapter(this));
+
+		MouseDragAdapter mouseListener = new MouseDragAdapter();
+		this.addMouseListener(mouseListener);
+		this.addMouseMotionListener(mouseListener);
 		JTabbedPane jtp = new JTabbedPane();
 		jtp.setBorder(UIManager.getBorder("OptionPane.border"));
-		jtp.addMouseListener(new MouseDragAdapter(jtp));
-		jtp.addMouseMotionListener(new MouseDragAdapter(jtp));
+		jtp.addMouseListener(mouseListener);
+		jtp.addMouseMotionListener(mouseListener);
 		GridBagConstraints gbc_jtp = new GridBagConstraints();
 		gbc_jtp.gridwidth = 4;
 		gbc_jtp.fill = GridBagConstraints.BOTH;

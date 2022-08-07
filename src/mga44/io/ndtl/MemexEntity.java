@@ -14,9 +14,9 @@ import javax.annotation.processing.Generated;
 
 import org.apache.commons.lang3.StringUtils;
 
-import mga44.EnvironmentManager;
 import mga44.SimpleMessageWindow;
 import mga44.memex.ContentType;
+import mga44.memex.MemexRepository;
 
 public class MemexEntity {
 
@@ -141,9 +141,9 @@ public class MemexEntity {
 				if (StringUtils.isBlank(filePath))
 					return this;
 
+				// TODO : to fix
 				String attachedFileName = Paths.get(filePath).getName(attachment.getNameCount() - 1).toString();
-				Path destination = Path.of(EnvironmentManager.getInstance().getMemexDirectory().toString(), "content",
-						"media", attachedFileName); // TODO parametrize
+				Path destination = MemexRepository.getInstance().getAttachmentDirectory().resolve(attachedFileName);
 				Files.copy(attachment, destination);
 				this.attachment = destination;
 			} catch (IOException e) {

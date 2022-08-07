@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 
-import mga44.EnvironmentManager;
 import mga44.io.ndtl.MemexEntity;
 
 public class MemexUtils {
@@ -49,7 +48,7 @@ public class MemexUtils {
 		append.accept("REVI", e.isRevised());
 		append.accept("SRCE", e.getSource());
 
-		Path databaseFile = EnvironmentManager.getInstance().getDatabaseFile();
+		Path databaseFile = MemexRepository.getInstance().getDatabaseFile();
 		LinkedList<String> contents = Files.readAllLines(databaseFile).stream()
 				.collect(Collectors.toCollection(() -> new LinkedList<>()));
 		contents.add(1, sb.toString());

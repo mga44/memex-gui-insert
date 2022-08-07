@@ -11,7 +11,6 @@ public class FileChooseButton extends MouseAdapter {
 	private JTextField correspondingField;
 
 	public FileChooseButton(JTextField correspondingField) {
-		super();
 		this.correspondingField = correspondingField;
 	}
 

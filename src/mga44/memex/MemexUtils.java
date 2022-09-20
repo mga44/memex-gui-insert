@@ -15,7 +15,7 @@ import java.util.function.BiConsumer;
 
 public class MemexUtils {
     private static final String SINGLE_LINE_PROPERTY_MASK = "  %s : %s" + System.lineSeparator();
-    private static final String MULTI_LINE_PROPERTY_MASK = "  %s" + System.lineSeparator() + "%s" + System.lineSeparator();
+    private static final String MULTI_LINE_PROPERTY_MASK = "  %s %s" + System.lineSeparator();
 
 
     public void save(MemexEntity e) throws IOException {

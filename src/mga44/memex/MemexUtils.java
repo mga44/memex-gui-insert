@@ -14,7 +14,9 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 
 public class MemexUtils {
-    private static final String PROPERTY_MASK = "  %s : %s" + System.lineSeparator(); // TODO handling multi line entries
+    private static final String SINGLE_LINE_PROPERTY_MASK = "  %s : %s" + System.lineSeparator();
+    private static final String MULTI_LINE_PROPERTY_MASK = "  %s" + System.lineSeparator() + "%s" + System.lineSeparator();
+
 
     public void save(MemexEntity e) throws IOException {
         String element = prepareEntityToSaving(e);
@@ -29,13 +31,16 @@ public class MemexUtils {
 
         BiConsumer<String, Object> append = (name, value) -> {
             String valStr = Optional.ofNullable(value).map(Object::toString).orElse("");
-            if (StringUtils.isNotBlank(valStr)) {
-                if (valStr.contains(System.lineSeparator())) {
-                    String newlinePrefix = System.lineSeparator() + "    > ";
-                    valStr = newlinePrefix + valStr.replaceAll(System.lineSeparator(), newlinePrefix);
-                }
-                sb.append(String.format(PROPERTY_MASK, name, valStr));
+            if (StringUtils.isBlank(valStr))
+                return;
+
+            if (!valStr.contains(System.lineSeparator())) {
+                sb.append(String.format(SINGLE_LINE_PROPERTY_MASK, name, valStr));
+                return;
             }
+            String newlinePrefix = System.lineSeparator() + "    > ";
+            valStr = newlinePrefix + valStr.replaceAll(System.lineSeparator(), newlinePrefix);
+            sb.append(String.format(MULTI_LINE_PROPERTY_MASK, name, valStr));
         };
         sb.append(e.getTitle()).append(System.lineSeparator());
         append.accept("TYPE", e.getType());

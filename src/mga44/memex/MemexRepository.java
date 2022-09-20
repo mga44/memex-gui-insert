@@ -4,46 +4,49 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class MemexRepository {
-	private Path memexDirectory;
-	private Path databaseFile;
-	private Path htmlFile;
-	private Path attachmentDirectory;
+    private static volatile MemexRepository current;
+    private Path memexDirectory;
+    private Path databaseFile;
+    private Path htmlFile;
+    private Path attachmentDirectory;
 
-	private static MemexRepository current;
+    private MemexRepository() {
+    }
 
-	private MemexRepository() {
-	}
+    private MemexRepository(Path repositoryDirectory) {
+        current = new MemexRepository();
+        memexDirectory = repositoryDirectory;
+        databaseFile = Path.of(memexDirectory.toString(), "content", "data.ndtl");
+        htmlFile = Path.of(memexDirectory.toString(), "index.html");
+        attachmentDirectory = Path.of(memexDirectory.toString(), "content", "media");
+    }
 
-	private MemexRepository(Path repositoryDirectory) {
-		memexDirectory = repositoryDirectory;
-		databaseFile = Path.of(current.memexDirectory.toString(), "content", "data.ndtl");
-		htmlFile = Path.of(current.memexDirectory.toString(), "index.html");
-		attachmentDirectory = Path.of(current.memexDirectory.toString(), "content", "media");
-	}
+    public static MemexRepository getInstance() {
+        if (current == null) {
+            synchronized (MemexRepository.class) {
+                if (current == null) {
+                    String property = System.getProperty("memex_directory");
+                    current = new MemexRepository(Paths.get(property));
+                }
+            }
+        }
 
-	public static MemexRepository getInstance() {
-		if (current != null)
-			return current;
+        return current;
+    }
 
-		String property = System.getProperty("memex_directory");
-		current = new MemexRepository(Paths.get(property));
+    public Path getMemexDirectory() {
+        return memexDirectory;
+    }
 
-		return current;
-	}
+    public Path getDatabaseFile() {
+        return databaseFile;
+    }
 
-	public Path getMemexDirectory() {
-		return memexDirectory;
-	}
+    public Path getHtmlFile() {
+        return htmlFile;
+    }
 
-	public Path getDatabaseFile() {
-		return databaseFile;
-	}
-
-	public Path getHtmlFile() {
-		return htmlFile;
-	}
-
-	public Path getAttachmentDirectory() {
-		return attachmentDirectory;
-	}
+    public Path getAttachmentDirectory() {
+        return attachmentDirectory;
+    }
 }

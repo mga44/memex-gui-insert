@@ -12,9 +12,11 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileInputStream;
+import java.io.PrintStream;
 import java.time.ZonedDateTime;
 import java.util.Properties;
 
+//TODO rewrite as Idea form
 public class Main extends JFrame {
 
     private static final Font programFont = new Font("Tahoma", Font.PLAIN, 12);
@@ -258,13 +260,13 @@ public class Main extends JFrame {
 
     private static void initialize() {
         try {
-            // TODO add error log file
+            System.setErr(new PrintStream("./err.log"));
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             String rootPath = "./resources/";
             String appConfigPath = rootPath + "app.properties";
-            Properties appProps = new Properties();
+            Properties appProps = new Properties(System.getProperties());
             appProps.load(new FileInputStream(appConfigPath));
-            System.setProperty("memex_directory", appProps.getProperty("memex_directory"));
+            System.setProperties(appProps);
         } catch (Exception e) {
             e.printStackTrace();
             String errorMessage = "Failed program initialisation:" + System.lineSeparator() + e.getLocalizedMessage();

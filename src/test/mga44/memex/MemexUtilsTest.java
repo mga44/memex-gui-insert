@@ -1,6 +1,7 @@
-package mga44.memex;
+package test.mga44.memex;
 
 import mga44.io.ndtl.MemexEntity;
+import mga44.memex.MemexUtils;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -25,7 +26,7 @@ class MemexUtilsTest {
         String expected =
                 """
                         TestTitle
-                          NOTE :\s
+                          NOTE\s
                             > firstLine
                             > secondLine
                           DONE : false

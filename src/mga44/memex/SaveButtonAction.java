@@ -26,7 +26,13 @@ public class SaveButtonAction extends MouseAdapter {
                 .withLink(window.link.getText())
                 .withAttachment(window.file.getText())
                 .withTags(window.tags.getText())
-                .withCreated(ZonedDateTime.now());
+                .withCreated(ZonedDateTime.now())
+                .withIsDone(window.isDone.isSelected())
+                .withIsRevised(window.isRevised.isSelected())
+                .withTerm(window.term.getText())
+                .withAuthor(window.author.getText())
+                .withProject(window.project.getText())
+                .withPerson(window.person.getText());
         //@formatter:on
         SaveEntityAction action = new SaveEntityAction(builder.build());
         action.run();

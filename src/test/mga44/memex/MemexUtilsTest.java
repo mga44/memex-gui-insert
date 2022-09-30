@@ -31,10 +31,10 @@ class MemexUtilsTest {
                             > secondLine
                           DONE : false
                           REVI : false
-                        """;
+                        """.replace("\n", System.lineSeparator());
         MemexEntity e = new MemexEntity.MemexEntityBuilder("TestTitle").withNote("firstLine" + System.lineSeparator() + "secondLine").build();
 
-        assertEquals(expected.replace("\n", System.lineSeparator()), getPrepareEntityToSavingMethod().invoke(new MemexUtils(), e));
+        assertEquals(expected, getPrepareEntityToSavingMethod().invoke(new MemexUtils(), e));
     }
 
 
